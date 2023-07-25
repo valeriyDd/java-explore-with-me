@@ -297,6 +297,7 @@ public class EventServiceImpl implements EventService {
 
     private PageRequest getPageRequestWithSort(Integer from, Integer size, String sort) {
         final SortType sortType = SortType.from(sort);
+        return sortType.equals(SortType.VIEWS)
                 ? PageRequest.of(from / size, size)
                 : PageRequest.of(from / size, size).withSort(Sort.by(sortType.getName()));
     }
