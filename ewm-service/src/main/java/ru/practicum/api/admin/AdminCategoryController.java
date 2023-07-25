@@ -38,7 +38,7 @@ public class AdminCategoryController {
     }
 
     /**
-     * с категорией не должно быть связано ни одного события.
+     * с категорией не должно быть связано ни одного сбытия.
      * @param catId
      */
     @DeleteMapping("/{catId}")
