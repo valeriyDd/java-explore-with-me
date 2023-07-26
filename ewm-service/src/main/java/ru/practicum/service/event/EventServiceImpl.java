@@ -302,20 +302,26 @@ public class EventServiceImpl implements EventService {
                 : PageRequest.of(from / size, size).withSort(Sort.by(sortType.getName()));
     }
 
-    /** Получение списка статусов */
+    /**
+     * Получение списка статусов
+     */
     private List<EventState> getEventStates(List<String> states) {
         return states.stream()
                 .map(EventState::from)
                 .collect(Collectors.toList());
     }
 
-    /** Получить просмотры события */
+    /**
+     * Получить просмотры события
+     */
     private static long getView(HttpServletRequest request, Map<String, Long> viewStats, Long eventId) {
         final String uri = request.getRequestURI() + "/" + eventId;
         return viewStats.getOrDefault(uri, 0L);
     }
 
-    /** Получить событие пользователя */
+    /**
+     * Получить событие пользователя
+     */
     private Event getEventForUser(long userId, long eventId) {
         return eventRepository.findByIdAndInitiatorId(eventId, userId)
                 .orElseThrow(() -> new NotFoundException(
@@ -348,7 +354,9 @@ public class EventServiceImpl implements EventService {
         }
     }
 
-    /** Обновление статуса для public api */
+    /**
+     * Обновление статуса для public api
+     */
     private void updateStatusByUser(UpdateEventUserRequest body, Event event) {
 
         final Set<EventStateAction> availableStats = Set.of(CANCEL_REVIEW, SEND_TO_REVIEW);
@@ -360,7 +368,9 @@ public class EventServiceImpl implements EventService {
         }
     }
 
-    /** Обновление статуса admin api */
+    /**
+     * Обновление статуса admin api
+     */
     private void updateStatusByAdmin(UpdateEventAdminRequest body, Event event) {
         final String bodyStateAction = body.getStateAction();
         if (bodyStateAction == null) return;
