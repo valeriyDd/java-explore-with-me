@@ -280,6 +280,7 @@ class AdminEventServiceImplTest {
         assertEquals(
                 String.format(YOU_CANNOT_S_EVENT_WHEN_CURRENT_STATUS_S, EventState.CANCELED, EventState.CANCELED),
                 exception.getMessage());
+
         verify(repository, times(1)).findById(eventId);
         verify(repository, never()).save(new Event());
     }

@@ -14,7 +14,6 @@ public enum SortType {
         this.name = name;
     }
 
-
     public static SortType from(String name) {
         for (SortType sortType : values()) {
             if (sortType.name().equalsIgnoreCase(name)) {

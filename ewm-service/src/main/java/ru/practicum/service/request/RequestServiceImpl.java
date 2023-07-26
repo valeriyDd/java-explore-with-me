@@ -99,6 +99,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
+    @Transactional
     public ParticipationRequestDto cancelRequest(long userId, long requestId) {
         userService.checkExistById(userId);
 

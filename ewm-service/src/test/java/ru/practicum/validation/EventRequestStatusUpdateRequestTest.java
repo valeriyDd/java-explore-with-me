@@ -5,7 +5,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import ru.practicum.dto.request.EventRequestStatusUpdateRequest;
-import ru.practicum.enums.RequestStatus;
 
 import java.util.Collections;
 import java.util.List;

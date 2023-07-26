@@ -358,7 +358,6 @@ public class EventServiceImpl implements EventService {
      * Обновление статуса для public api
      */
     private void updateStatusByUser(UpdateEventUserRequest body, Event event) {
-
         final Set<EventStateAction> availableStats = Set.of(CANCEL_REVIEW, SEND_TO_REVIEW);
         final String status = body.getStateAction();
         if (status != null) {

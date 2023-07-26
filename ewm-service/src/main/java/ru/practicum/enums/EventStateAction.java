@@ -16,7 +16,6 @@ public enum EventStateAction {
         this.eventState = eventState;
     }
 
-
     public static EventStateAction from(String name) {
         for (EventStateAction esa : values()) {
             if (esa.name().equalsIgnoreCase(name)) {

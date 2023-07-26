@@ -66,7 +66,7 @@ public class TestInitDataUtil {
     }
 
     private static Event addEvent(EventRepository repository, LocationRepository locationRepository,
-                                  String title, String description, String annotation,
+                                  String title, String description,String annotation,
                                   Category category, User user) {
         Random r = new Random();
         final Location l = Location.builder().lat(r.nextFloat() * 10).lon(r.nextFloat() * 10).build();
