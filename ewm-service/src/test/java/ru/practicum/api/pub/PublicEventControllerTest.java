@@ -73,7 +73,7 @@ class PublicEventControllerTest {
         mvc.perform(get("/events")
                         .param("text", "text")
                         .param("users", "1", "2")
-                        .param("states","1", "2")
+                        .param("states", "1", "2")
                         .param("categories", "1", "2")
                         .param("from", "0")
                         .param("size", "10")
