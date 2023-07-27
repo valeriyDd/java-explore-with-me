@@ -61,7 +61,7 @@ class PrivateRequestControllerTest {
                 .build();
         eventRequest = EventRequestStatusUpdateRequest.builder()
                 .requestIds(List.of(1L, 2L))
-                .status("CONFIRMED")
+                .status(RequestStatus.CONFIRMED)
                 .build();
         updatedRequest = EventRequestStatusUpdateResult.builder()
                 .confirmedRequests(List.of(requestDto1, requestDto2))

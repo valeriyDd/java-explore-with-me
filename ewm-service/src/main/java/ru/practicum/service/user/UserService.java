@@ -9,7 +9,6 @@ import java.util.List;
 public interface UserService {
     /**
      * Добавление нового пользователя
-     *
      * @param body Данные добавляемого пользователя
      * @return
      */
@@ -21,10 +20,9 @@ public interface UserService {
      * либо о конкретных (учитываются указанные идентификаторы)
      * <p>
      * В случае, если по заданным фильтрам не найдено ни одного пользователя, возвращает пустой список
-     *
-     * @param ids  id пользователей
+     * @param ids id пользователей
      * @param from количество элементов, которые нужно пропустить для формирования
-     *             текущего набора default: 0
+     * текущего набора default: 0
      * @param size количество элементов в наборе default: 10
      * @return
      */
@@ -32,7 +30,6 @@ public interface UserService {
 
     /**
      * Удаление пользователя
-     *
      * @param userId
      */
     void delete(long userId);
