@@ -28,8 +28,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static java.lang.Boolean.FALSE;
-import static ru.practicum.enums.RequestStatus.*;
+import static ru.practicum.enums.RequestStatus.CANCELED;
 import static ru.practicum.enums.RequestStatus.CONFIRMED;
+import static ru.practicum.enums.RequestStatus.PENDING;
 import static ru.practicum.enums.RequestStatus.REJECTED;
 
 @Service
@@ -114,6 +115,28 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
+    public List<ParticipationRequestDto> changeVisibilityEventParticipation(long userId, List<Long> ids, boolean hide) {
+        userService.checkExistById(userId);
+
+        final List<Request> requestList = requestRepository.findAllById(ids);
+        final boolean allMatchUser = requestList.stream()
+                .allMatch(request -> request.getRequester().getId().equals(userId));
+        if (!allMatchUser) {
+            throw new ConflictException("User cannot change the visibility of events in which he does not participate.");
+        }
+        final boolean allMatchStatus = requestList.stream()
+                .allMatch(request -> request.getStatus().equals(CONFIRMED));
+        if (!allMatchStatus) {
+            throw new ConflictException("Participation in events must be confirmed.");
+        }
+        requestList.forEach(f -> f.setPrivate(hide));
+        requestRepository.saveAll(requestList);
+        return requestList.stream()
+                .map(RequestMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<ParticipationRequestDto> getEventParticipants(long userId, long eventId) {
         userService.checkExistById(userId);
 
@@ -135,8 +158,9 @@ public class RequestServiceImpl implements RequestService {
 
     /**
      * Изменение статуса (подтверждена, отменена) заявок на участие в событии текущего пользователя
-     * @param body Новый статус для заявок на участие в событии текущего пользователя
-     * @param userId id текущего пользователя
+     *
+     * @param body    Новый статус для заявок на участие в событии текущего пользователя
+     * @param userId  id текущего пользователя
      * @param eventId id события текущего пользователя
      * @return - нельзя подтвердить заявку, если уже достигнут лимит по заявкам на данное событие (Ожидается код ошибки 409)<p></p>
      * - статус можно изменить только у заявок, находящихся в состоянии ожидания (Ожидается код ошибки 409)<p></p>
